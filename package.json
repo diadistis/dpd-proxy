@@ -1,0 +1,15 @@
+{
+  "author": {
+    "name": "Diadistis",
+    "email" : "bsotirid@gmail.com"
+  },
+  "name": "dpd-proxy",
+  "version": "0.0.1",
+  "description": "A simple proxy resource for deployd",
+  "repository": {
+    "url": "git://github.com/diadistis/dpd-proxy.git"
+  },
+  "main": "index",
+  "dependencies": {
+  }
+}
