@@ -1,15 +1,35 @@
 {
+  "name": "dpd-proxy",
+  "description": "A simple proxy resource for deployd",
+  "version": "0.0.1",
+  "homepage": "https://github.com/diadistis/dpd-proxy",
   "author": {
     "name": "Diadistis",
     "email" : "bsotirid@gmail.com"
   },
-  "name": "dpd-proxy",
-  "version": "0.0.1",
-  "description": "A simple proxy resource for deployd",
   "repository": {
+    "type": "git",
     "url": "git://github.com/diadistis/dpd-proxy.git"
   },
+  "bugs": {
+    "url": "http://github.com/diadistis/dpd-proxy/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/diadistis/dpd-proxy/blob/master/LICENSE"
+    }
+  ],
   "main": "index",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
   "dependencies": {
-  }
+    "npm": "~1.3.9"
+  },
+  "keywords": [
+    "deployd",
+    "resource",
+    "proxy"
+  ]
 }
