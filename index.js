@@ -1,5 +1,6 @@
 var 
     Resource = require('deployd/lib/resource'), 
+    querystring = require('querystring'),
     util = require('util'),
     http = require('http'),
     url = require('url');
@@ -16,7 +17,13 @@ Proxy.prototype.handle = function (ctx, next) {
     if(ctx.req && ctx.req.method !== 'GET') return next();
 
     var urlObj = url.parse(this.config.url + ctx.url);    
-    urlObj.query = ctx.query;    
+    urlObj.query = ctx.query;
+    
+    var paramsObj = querystring.parse(this.config.params);
+    
+    for (var property in paramsObj)
+        urlObj.query[property] = paramsObj[property];
+
     urlObj = url.parse(url.format(urlObj));
     
     var requestOptions = {
@@ -60,6 +67,10 @@ Proxy.basicDashboard = {
     name        : 'password',
     type        : 'text',
     description : 'HTTP password'
+  }, {
+    name        : 'params',
+    type        : 'text',
+    description : 'Extra query string params'
   }]
 };
 
