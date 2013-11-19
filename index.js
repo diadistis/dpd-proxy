@@ -17,7 +17,7 @@ Proxy.prototype.handle = function (ctx, next) {
     if(ctx.req && ctx.req.method !== 'GET') return next();
 
     var urlObj = url.parse(this.config.url + ctx.url);    
-    urlObj.query = ctx.query;
+    urlObj.query = querystring.parse(url.parse(ctx.req.url).query);
     
     var paramsObj = querystring.parse(this.config.params);
     
