@@ -2,7 +2,6 @@ var
     Resource = require('deployd/lib/resource'), 
     querystring = require('querystring'),
     util = require('util'),
-    http = require('http'),
     url = require('url');
 
 function Proxy(name, options) {
@@ -24,19 +23,23 @@ Proxy.prototype.handle = function (ctx, next) {
     for (var property in paramsObj)
         urlObj.query[property] = paramsObj[property];
 
-    urlObj = url.parse(url.format(urlObj));
+    requestOptions = url.parse(url.format(urlObj));
+    requestOptions.method = ctx.req.method;
     
-    var requestOptions = {
-        hostname : urlObj.host,
-        port : urlObj.port || 80,
-        path : urlObj.path,
-        method : ctx.req.method,
-        headers: {
+    if (this.config.username) {
+        requestOptions.headers = {
             'Authorization': 'Basic ' + new Buffer(this.config.username + ':' + this.config.password).toString('base64')
-        }    
-    };
+        }
+    }
+
+    var client;
     
-    var proxy_request = http.request(requestOptions, function(res) {
+    if (requestOptions.protocol === 'https:')
+        client = require('https');
+    else 
+        client = require('http');
+        
+    var proxy_request = client.request(requestOptions, function(res) {
         res.setEncoding('utf8');
         res.on('data', function (chunk) {
             ctx.res.write(chunk);
@@ -44,10 +47,12 @@ Proxy.prototype.handle = function (ctx, next) {
         res.on('end', function (chunk) {
             ctx.res.end();
         });
-    });    
+    });
+    
     ctx.req.addListener('data', function(chunk) {
         proxy_request.write(chunk, 'binary');
     });
+    
     ctx.req.addListener('end', function() {
         proxy_request.end();
     });    
@@ -73,4 +78,3 @@ Proxy.basicDashboard = {
     description : 'Extra query string params'
   }]
 };
-
