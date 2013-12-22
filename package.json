@@ -1,12 +1,16 @@
 {
   "name": "dpd-proxy",
   "description": "A simple proxy resource for deployd",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "homepage": "https://github.com/diadistis/dpd-proxy",
   "author": {
     "name": "Diadistis",
     "email" : "bsotirid@gmail.com"
   },
+  "contributors": [{
+    "name": "Colin Bate",
+    "url" : "https://github.com/colinbate"
+  }],
   "repository": {
     "type": "git",
     "url": "git://github.com/diadistis/dpd-proxy.git"
