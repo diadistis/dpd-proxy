@@ -60,10 +60,6 @@ Proxy.prototype.handle = function (ctx, next) {
         ctx.res.end();
     });
 
-    proxy_request.on('error', function (err) {
-        console.warn(err);
-    });
-
     ctx.req.addListener('data', function(chunk) {
         proxy_request.write(chunk, 'binary');
     });
