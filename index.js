@@ -53,6 +53,13 @@ Proxy.prototype.handle = function (ctx, next) {
         });
     });
 
+    proxy_request.on('error', function (err) {
+        console.error(err);
+        // Bad request
+        ctx.res.statusCode = 400;
+        ctx.res.end();
+    });
+
     ctx.req.addListener('data', function(chunk) {
         proxy_request.write(chunk, 'binary');
     });
